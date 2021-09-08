@@ -22,22 +22,23 @@ Safely transfers the ownership of a given token ID to another address .Requires 
 setApprovalForAll (address to, bool approved)
 Sets or unsets the approval of a given operator An operator is allowed to transfer all tokens of the sender on their behalf.
 
-balanceOf(address owner)  returns uint256
+balanceOf(address owner)  returns uint256  C
 Gets the balance of the specified address.
 
-ownerOf(uint256 tokenId)   returns address
+ownerOf(uint256 tokenId)   returns address   C
 Gets the owner of the specified token ID.
 
-inWlist(address add) returns bool
+inWlist(address add) returns bool      C
 checks if add is in whitelist
 
-isApprovedForAll(address owner, address operator) returns bool
+isApprovedForAll(address owner, address operator) returns bool      C
 Tells whether an operator is approved by a given owner.
 
-ownedTokens (address add) returns unit256[]
+ownedTokens (address add) returns unit256[]      C
 returns the owned tokens of “add”
 
-tokenURI(uint256 tokenId) returns string
+tokenURI(uint256 tokenId) returns string        C
 Returns the URI for a given token ID. May return an empty string.
 
-
+getApproved(uint256 tokenId)  returns address    C
+Gets the approved address for a token ID, or zero if no address set Reverts if the token ID does not exist.
