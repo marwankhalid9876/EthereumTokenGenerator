@@ -1,6 +1,6 @@
-pragma solidity ^0.8.0;
+pragma solidity <=0.8.0;
 pragma experimental ABIEncoderV2;
-import "../node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 /**
  * @title SimpleToken
@@ -16,40 +16,54 @@ contract SimpleToken is ERC20 {
      */
     
      //uint256 _totalSupply;
-     address[]  public wlist;
+     address[]  private wlist;
+     bool _list;
     constructor(
         string memory name,
         string memory symbol,
-        uint256 initialSupply
+        uint256 initialSupply,
+        bool list
     ) public ERC20(name, symbol) {
       
       addtoWlist(msg.sender);
         _mint(msg.sender, initialSupply);
+        
     }
    
     function transferFrom(address sender, address recipient, uint256 amount) public virtual
                                                 override returns (bool) {
         
-        
-             for (uint i = 0; i<wlist.length; i++){
-           if(wlist[i]==recipient){
-           _transfer(sender, recipient, amount);
-          return true;}}
+        if(inWlist(recipient))
+          
+{           _transfer(sender, recipient, amount);
+return true;
+   
+}         
      
        
         return false;
 }
+   function inWlist(address add) public  view returns(bool){
+         for (uint i = 0; i<wlist.length; i++){
+           if(wlist[i]==add){
+               
+               
+          
+          return true;
+           }}
+           }
  function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
-     
-     
-       for (uint i = 0; i<wlist.length; i++){
-           if(wlist[i]==recipient){
-           _transfer(_msgSender(), recipient, amount);
-          return true;}}
+        
+        if(inWlist(recipient))
+          
+{           _transfer(msg.sender, recipient, amount);
+return true;
+   
+}         
      
        
         return false;
-    }
+}
     function addtoWlist(address add)public{
         wlist.push(add);
     }
