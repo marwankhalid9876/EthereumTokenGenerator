@@ -1,3 +1,5 @@
+//C is for (call) methods
+
 constructor(string memory name, string symbol, bool list)
 if “list” is true the whitelist will be used
 
