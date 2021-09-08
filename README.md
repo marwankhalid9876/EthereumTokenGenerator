@@ -8,6 +8,8 @@ truffle compile
 TO install truffle
 npm install -g truffle
 
+To install openzeppelin that is imported in the contracts:
+npm install openzeppelin 
 
 https://www.youtube.com/watch?v=4cPEGO4NAao
 
