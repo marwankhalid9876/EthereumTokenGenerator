@@ -3,7 +3,7 @@ const { LocalStorage } = require("node-localstorage");
 localStorage = new LocalStorage("../scratch");
 const tokendata = JSON.parse(localStorage.getItem("tokendata"));
 
-module.exports = function (deployer) {
+module.exports = function (deployer, network, accounts) {
   console.log("data is", tokendata);
   deployer.deploy(
     simpleToken,

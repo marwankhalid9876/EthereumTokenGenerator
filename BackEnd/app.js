@@ -6,7 +6,6 @@ const { RequestTimeout } = require("http-errors");
 var cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const { exec, spawn, fork } = require("child_process");
-const { Store } = require("./service/Store.js");
 const { LocalStorage } = require("node-localstorage");
 global.localStorage = new LocalStorage("./scratch");
 
@@ -16,12 +15,32 @@ var app = express();
 // app.set("views", path.join(__dirname, "views"));
 // app.set("view engine", "ejs");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+    optionSuccessStatus: 200,
+  })
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.get("/", function (req, res) {
   res.json({ message: "Welcome from the node Serve" });
+});
+
+app.post("/login", function (req, res) {
+  console.log("logging in");
+  const { mnemonic } = req.body;
+  console.log("mnemonic", mnemonic);
+  localStorage.setItem("mnemonic", mnemonic);
+  res.cookie("mnemonic", mnemonic);
+  res.status(200).send("OK");
+});
+app.post("/logout", function (req, res) {
+  console.log("logging out");
+  res.clearCookie("mnemonic");
 });
 
 app.post("/deploy", function (req, res) {
