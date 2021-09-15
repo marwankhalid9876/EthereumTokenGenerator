@@ -46,7 +46,6 @@ app.post("/logout", function (req, res) {
 
 app.post("/deploy", function (req, res) {
   const tokendata = req.body;
-  console.log(Store);
   // Store.save("tokendata", tokendata);
   localStorage.setItem("tokendata", JSON.stringify(tokendata));
 
@@ -69,10 +68,9 @@ app.post("/deploy", function (req, res) {
 
   bat.on("exit", (code) => {
     console.log(`Child exited with code ${code}`);
+    res.status(200).send("ok");
   });
   // Call the truffle Compiler / Deployers
-
-  res.status(200).send("ok");
 });
 
 app.get("/getTokenData", function (req, res) {
