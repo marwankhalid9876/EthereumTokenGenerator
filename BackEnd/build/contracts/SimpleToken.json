@@ -94,7 +94,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -137,7 +138,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -150,7 +152,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -211,7 +214,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -224,7 +228,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -237,7 +242,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -256,7 +262,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -13516,12 +13523,13 @@
         }
       },
       "links": {},
-      "address": "0x66206f7FD7e6c0D260D64a109b1DeC4Ebf9FB092",
-      "transactionHash": "0x914cb9181a298d722fa66806131075a82c91fb153f440579982bf125ebc9b94b"
+      "address": "0x58f0fE6c0cEefbb5e157Cb679C912bDEF5A0cd71",
+      "transactionHash": "0xf7564ccb0f9f308e7a265165c0db1b1a31f6ff7bb5e7b9b7f61d46c90a6a6ac6"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-09-15T14:59:33.543Z",
+  "updatedAt": "2021-09-15T16:00:51.131Z",
+  "networkType": "ethereum",
   "devdoc": {
     "details": "Very simple ERC20 Token example, where all tokens are pre-assigned to the creator. Note they can later distribute these tokens as they wish using `transfer` and other `ERC20` functions. Based on https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v2.5.1/contracts/examples/SimpleToken.sol",
     "kind": "dev",

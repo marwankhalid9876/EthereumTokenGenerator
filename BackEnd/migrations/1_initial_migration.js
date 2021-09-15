@@ -1,8 +1,9 @@
 const simpleToken = artifacts.require("SimpleToken");
+const { LocalStorage } = require("node-localstorage");
+localStorage = new LocalStorage("../scratch");
+const tokendata = JSON.parse(localStorage.getItem("tokendata"));
 
 module.exports = function (deployer) {
-  const tokendata = fetch("localhost:8080/getTokenData");
-
   console.log("data is", tokendata);
   deployer.deploy(
     simpleToken,

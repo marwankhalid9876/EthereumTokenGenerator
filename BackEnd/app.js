@@ -5,8 +5,10 @@ const { request } = require("http");
 const { RequestTimeout } = require("http-errors");
 var cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const { exec, spawn } = require("child_process");
-const store = require("store");
+const { exec, spawn, fork } = require("child_process");
+const { Store } = require("./service/Store.js");
+const { LocalStorage } = require("node-localstorage");
+global.localStorage = new LocalStorage("./scratch");
 
 var path = require("path");
 var app = express();
@@ -24,7 +26,9 @@ app.get("/", function (req, res) {
 
 app.post("/deploy", function (req, res) {
   const tokendata = req.body;
-  store.set("tokendata", tokendata);
+  console.log(Store);
+  // Store.save("tokendata", tokendata);
+  localStorage.setItem("tokendata", JSON.stringify(tokendata));
 
   console.log("recived:", tokendata);
   // TODO: Perform Validation checkes
@@ -52,7 +56,7 @@ app.post("/deploy", function (req, res) {
 });
 
 app.get("/getTokenData", function (req, res) {
-  const data = store.get("tokendata");
+  const data = Store.get("tokendata");
   console.log("sending to truffle", data);
   res.json(data);
 });
