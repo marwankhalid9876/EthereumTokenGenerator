@@ -15,6 +15,8 @@ import SelectType from "../components/SelectType";
 import Attributes from "../components/Attributes";
 import Confirmation from "../components/Confirmation";
 import deploy from "../services/deploy";
+import Displayer from "../components/Displayer";
+import fetchStream from "fetch-readablestream";
 
 function Copyright() {
   return (
@@ -109,6 +111,9 @@ export default function NewContract() {
   const [tknName, settknName] = useState("");
   const [tknSym, settknSym] = useState("");
   const [tknSup, settknSup] = useState("");
+  const [terminalDisplay, setterminalDisplay] = useState("");
+  const [showTerminal, setshowTerminal] = useState(false);
+  const [terminalStream, setTerminalStream] = useState(0);
 
   const tkninfo = [
     { name: "Token Name", value: tknName },
@@ -134,15 +139,33 @@ export default function NewContract() {
   const handleNext = () => {
     setActiveStep(activeStep + 1);
     if (activeStep === 2) {
-      deploy
-        .send({
+      // deploy
+      //   .send({
+      //     tknType: tknType,
+      //     tknName: tknName,
+      //     tknSym: tknSym,
+      //     tknSup: tknSup,
+      //   })
+      //   .then((res) => {
+      //     console.log("success ===>", res);
+      //     setTerminalStream(res.body);
+      //   })
+      //   .catch((err) => console.log("error ===<", err));
+      fetchStream("http://localhost:8080/deploy", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: JSON.stringify({
           tknType: tknType,
           tknName: tknName,
           tknSym: tknSym,
           tknSup: tknSup,
-        })
-        .then((res) => console.log("success ===>", res))
-        .catch((err) => console.log("error ===<", err));
+        }),
+      })
+        .then((response) => setTerminalStream(response.body))
+        .then((chunks) => console.dir(chunks));
     }
   };
 
@@ -198,6 +221,11 @@ export default function NewContract() {
         </Paper>
       </main>
       <Copyright />
+      <Displayer
+        terminalStream={terminalStream}
+        terminalDisplay={terminalDisplay}
+        setterminalDisplay={setterminalDisplay}
+      />
     </>
   );
 }

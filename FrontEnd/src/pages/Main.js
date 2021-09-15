@@ -9,8 +9,11 @@ import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import http from "../services/http-common";
-
+import Test from "./Test";
 export default function Main() {
+  // TESTING
+  // return <Test />;
+
   console.log("mn", Cookies.get("mnemonic"));
   const useStyles = makeStyles((theme) => ({
     appBar: {

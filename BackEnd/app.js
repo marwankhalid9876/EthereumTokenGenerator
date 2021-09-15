@@ -46,18 +46,16 @@ app.post("/logout", function (req, res) {
 
 app.post("/deploy", function (req, res) {
   const tokendata = req.body;
-  // Store.save("tokendata", tokendata);
   localStorage.setItem("tokendata", JSON.stringify(tokendata));
 
   console.log("recived:", tokendata);
   // TODO: Perform Validation checkes
 
   console.log("running truffle");
-
-  // exec("npx truffle migrate --network rinkeby --reset --compile-all", (error, stdout, stderr) => {
   const command = "truffle migrate --network rinkeby --reset --compile-all";
   const bat = spawn("cmd.exe", ["/c", command]);
 
+  bat.stdout.pipe(res);
   bat.stdout.on("data", (data) => {
     console.log(data.toString());
   });
@@ -70,7 +68,6 @@ app.post("/deploy", function (req, res) {
     console.log(`Child exited with code ${code}`);
     res.status(200).send("ok");
   });
-  // Call the truffle Compiler / Deployers
 });
 
 app.get("/getTokenData", function (req, res) {
