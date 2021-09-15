@@ -41,6 +41,7 @@ app.post("/login", function (req, res) {
 app.post("/logout", function (req, res) {
   console.log("logging out");
   res.clearCookie("mnemonic");
+  res.status(200).send("OK");
 });
 
 app.post("/deploy", function (req, res) {

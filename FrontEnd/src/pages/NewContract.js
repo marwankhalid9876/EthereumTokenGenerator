@@ -152,16 +152,6 @@ export default function NewContract() {
 
   return (
     <>
-      <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Link to="/">
-            <Typography variant="h6" color="inherit" noWrap>
-              Ethereum Token Generator
-            </Typography>
-          </Link>
-        </Toolbar>
-      </AppBar>
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
