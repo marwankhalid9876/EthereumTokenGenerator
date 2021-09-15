@@ -5,8 +5,8 @@ const { request } = require("http");
 const { RequestTimeout } = require("http-errors");
 var cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const { exec } = require("child_process");
-const { setData } = require("./service/tokenInfoStore.js");
+const { exec, spawn } = require("child_process");
+const store = require("store");
 
 var path = require("path");
 var app = express();
@@ -24,30 +24,37 @@ app.get("/", function (req, res) {
 
 app.post("/deploy", function (req, res) {
   const tokendata = req.body;
-  console.log(tokendata);
+  store.set("tokendata", tokendata);
+
+  console.log("recived:", tokendata);
   // TODO: Perform Validation checkes
-  setData(tokendata);
-  try {
-  } catch (error) {
-    res.status(400).send("Bad Request");
-  }
+
   console.log("running truffle");
 
   // exec("npx truffle migrate --network rinkeby --reset --compile-all", (error, stdout, stderr) => {
-  exec("npx truffle compile", (error, stdout, stderr) => {
-    if (error) {
-      console.log(`error: ${error.message}`);
-      return;
-    }
-    if (stderr) {
-      console.log(`stderr: ${stderr}`);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
+  const command = "truffle migrate --network rinkeby --reset --compile-all";
+  const bat = spawn("cmd.exe", ["/c", command]);
+
+  bat.stdout.on("data", (data) => {
+    console.log(data.toString());
+  });
+
+  bat.stderr.on("data", (data) => {
+    console.error(data.toString());
+  });
+
+  bat.on("exit", (code) => {
+    console.log(`Child exited with code ${code}`);
   });
   // Call the truffle Compiler / Deployers
 
   res.status(200).send("ok");
+});
+
+app.get("/getTokenData", function (req, res) {
+  const data = store.get("tokendata");
+  console.log("sending to truffle", data);
+  res.json(data);
 });
 
 const server_port = 8080;

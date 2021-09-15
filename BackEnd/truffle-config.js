@@ -23,10 +23,7 @@
 var mnemonic = 'pelican enable chief quality install huge pear acid speak into match river';
 
 var tokenKey = '97b64c56475b472fa03fc09c4b2131bd';
-1
-2
-3
-4
+
 
 //
 // const fs = require('fs');
