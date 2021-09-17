@@ -1,0 +1,251 @@
+
+Compiling your contracts...
+
+===========================
+
+> Compiling @openzeppelin\contracts\token\ERC20\ERC20.sol
+
+> Compiling @openzeppelin\contracts\token\ERC20\IERC20.sol
+> Compiling @openzeppelin\contracts\token\ERC20\extensions\IERC20Metadata.sol
+> Compiling @openzeppelin\contracts\token\ERC721\ERC721.sol
+> Compiling @openzeppelin\contracts\token\ERC721\IERC721.sol
+> Compiling @openzeppelin\contracts\token\ERC721\IERC721Receiver.sol
+> Compiling @openzeppelin\contracts\token\ERC721\extensions\ERC721URIStorage.sol
+> Compiling @openzeppelin\contracts\token\ERC721\extensions\IERC721Metadata.sol
+> Compiling @openzeppelin\contracts\utils\Address.sol
+> Compiling @openzeppelin\contracts\utils\Context.sol
+> Compiling @openzeppelin\contracts\utils\Counters.sol
+> Compiling @openzeppelin\contracts\utils\Strings.sol
+> Compiling @openzeppelin\contracts\utils\introspection\ERC165.sol
+> Compiling @openzeppelin\contracts\utils\introspection\IERC165.sol
+> Compiling .\contracts\ERC20.sol
+> Compiling .\contracts\ERC721.sol
+> Compiling .\contracts\GameItem.sol
+> Compiling .\contracts\SimpleToken.sol
+
+> Compilation warnings encountered:
+
+    Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for 
+more information.
+--> project:/contracts/ERC20.sol
+
+,Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> project:/contracts/ERC721.sol
+
+,Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> project:/contracts/GameItem.sol
+
+,Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> project:/contracts/SimpleToken.sol
+
+,Warning: Visibility for constructor is ignored. If you want the contract to be non-deployable, making it "abstract" is sufficient.
+  --> project:/contracts/ERC20.sol:21:5:
+   |
+21 |     constructor(
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+,Warning: Visibility for constructor is ignored. If you want the contract to be non-deployable, making it "abstract" is sufficient.
+  --> project:/contracts/ERC721.sol:15:5:
+   |
+15 |     constructor(string memory name,
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+,Warning: Visibility for constructor is ignored. If you want the contract to be non-deployable, making it "abstract" is sufficient.
+  --> project:/contracts/GameItem.sol:15:5:
+   |
+15 |     constructor(string memory name,
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+,Warning: Visibility for constructor is ignored. If you want the contract to be non-deployable, making it "abstract" is sufficient.
+  --> project:/contracts/SimpleToken.sol:20:5:
+   |
+20 |     constructor(
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+,Warning: Unnamed return variable can remain unassigned. Add an explicit return with value to all non-reverting code paths or name the variable.
+  --> project:/contracts/ERC20.sol:46:55:
+   |
+46 |    function inWlist(address add) public  view returns(bool){
+   |                                                       ^^^^
+
+,Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> project:/contracts/ERC20.sol:25:9:
+   |
+25 |         bool list
+   |         ^^^^^^^^^
+
+,Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> project:/contracts/ERC721.sol:16:31:
+   |
+16 |         string memory symbol, bool list) ERC721(name, symbol) public {
+   |                               ^^^^^^^^^
+
+
+
+> Artifacts written to C:\Users\dahom\Desktop\ABO\Study\InternShip\Ethereum\projects\BackEnd\build\contracts
+> Compiled successfully using:
+   - solc: 0.8.0+commit.c7dfd78e.Emscripten.clang
+
+
+
+> Duplicate contract names found for GameItem.
+> This can cause errors and unknown behavior. Please rename one of your contracts.
+
+
+> Duplicate contract names found for SimpleToken.
+> This can cause errors and unknown behavior. Please rename one of your contracts.
+
+
+
+
+Migrations dry-run (simulation)
+===============================
+> Network name:    'rinkeby-fork'
+> Network id:      4
+> Block gas limit: 29941438 (0x1c8debe)
+
+
+
+1_initial_migration.js
+======================
+data is { tknName: 'heml', tknSym: 'sym', tknSup: 100 }
+
+
+   Replacing 'SimpleToken'
+   -----------------------
+
+   > block number:        9297763
+   > block timestamp:     1631721571
+   > account:             0xbf09c99396EEB4F7E0ccA7d3de36b1b7DC87E984
+   > balance:             2.247687745
+   > gas used:            1357525 (0x14b6d5)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.01357525 ETH
+
+
+   -------------------------------------
+   > Total cost:          0.01357525 ETH
+
+
+
+2_second_migration.js
+=====================
+
+
+   Replacing 'GameItem'
+   --------------------
+
+   > block number:        9297765
+   > block timestamp:     1631721605
+   > account:             0xbf09c99396EEB4F7E0ccA7d3de36b1b7DC87E984
+   > balance:             2.219401675
+   > gas used:            2801094 (0x2abdc6)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.02801094 ETH
+
+
+   -------------------------------------
+   > Total cost:          0.02801094 ETH
+
+
+
+Summary
+=======
+> Total deployments:   2
+> Final cost:          0.04158619 ETH
+
+
+
+
+
+
+
+
+Starting migrations...
+======================
+> Network name:    'rinkeby'
+> Network id:      4
+> Block gas limit: 30000000 (0x1c9c380)
+
+
+1_initial_migration.js
+======================
+
+data is { tknName: 'heml', tknSym: 'sym', tknSup: 100 }
+
+
+   Replacing 'SimpleToken'
+   -----------------------
+
+   > transaction hash:    0xf7564ccb0f9f308e7a265165c0db1b1a31f6ff7bb5e7b9b7f61d46c90a6a6ac6
+
+- Blocks: 0            Seconds: 0
+
+   > Blocks: 2            Seconds: 17
+   > contract address:    0x58f0fE6c0cEefbb5e157Cb679C912bDEF5A0cd71
+   > block number:        9297768
+   > block timestamp:     1631721699
+   > account:             0xbf09c99396EEB4F7E0ccA7d3de36b1b7DC87E984
+   > balance:             2.246709745
+   > gas used:            1455325 (0x1634dd)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.01455325 ETH
+
+
+
+
+- Saving migration to chain.
+
+   > Saving migration to chain.
+
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.01455325 ETH
+
+
+
+2_second_migration.js
+=====================
+
+
+   Replacing 'GameItem'
+   --------------------
+
+   > transaction hash:    0x917c7a5318b46f3e36b7da312f54eac0e036a23ac9caefed18a07434042404df
+
+- Blocks: 0            Seconds: 0
+
+   > Blocks: 1            Seconds: 12
+   > contract address:    0xA7CDBEFd70093E3e1bAf5Fa7342DF1B3DC03B567
+   > block number:        9297770
+   > block timestamp:     1631721729
+   > account:             0xbf09c99396EEB4F7E0ccA7d3de36b1b7DC87E984
+   > balance:             2.217921675
+   > gas used:            2849994 (0x2b7cca)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.02849994 ETH
+
+
+
+
+- Saving migration to chain.
+
+   > Saving migration to chain.
+
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.02849994 ETH
+
+
+Summary
+=======
+> Total deployments:   2
+> Final cost:          0.04305319 ETH
+
+
+
+
