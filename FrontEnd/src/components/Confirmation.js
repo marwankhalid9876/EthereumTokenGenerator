@@ -21,16 +21,28 @@ const useStyles = makeStyles((theme) => ({
 export default function Confirmation(props) {
   const classes = useStyles();
 
+  console.log(props.tkninfo);
+  let tknType = undefined;
+  props.tkninfo.forEach((element) => {
+    if (element.name === "Token Type") tknType = element.value;
+  });
+  let tkninfo = props.tkninfo;
+  if (tknType === "erc721") {
+    tkninfo = tkninfo.filter((elm) =>
+      elm.name === "Inital Supply" ? false : true
+    );
+  }
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Token Summary
       </Typography>
       <List disablePadding>
-        {props.tkninfo.map((info) => (
+        {tkninfo.map((info) => (
           <ListItem className={classes.listItem} key={info.name}>
             <ListItemText primary={info.name} />
-            <Typography variant="body2">{info.value}</Typography>
+            <Typography variant="body2">{info.value.toString()}</Typography>
           </ListItem>
         ))}
       </List>

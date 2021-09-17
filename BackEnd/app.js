@@ -53,13 +53,6 @@ app.post("/deploy", function (req, res) {
   const tokendata = req.body;
   const mnemonic = req.mnemonic;
   db.updateUserTokenAdd(mnemonic, { ...tokendata });
-  // let users = db.get("users");
-  // users.forEach((user) => {
-  //   if (user.mnemonic == mnemonic) {
-  //     user["tokendata"] = tokendata;
-  //   }
-  // });
-  // db.set("users", users);
 
   db.set("tokendata", tokendata);
 
@@ -83,12 +76,6 @@ app.post("/deploy", function (req, res) {
     console.log(`Child exited with code ${code}`);
     res.status(200).send("ok");
   });
-});
-
-app.get("/getTokenData", function (req, res) {
-  const data = Store.get("tokendata");
-  console.log("sending to truffle", data);
-  res.json(data);
 });
 
 const server_port = 8080;

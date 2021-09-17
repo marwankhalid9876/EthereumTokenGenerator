@@ -83,6 +83,8 @@ function getStepContent(
     settknSym,
     tknSup,
     settknSup,
+    whiteListChecked,
+    setwhiteListChecked,
     tkninfo,
   }
 ) {
@@ -98,6 +100,8 @@ function getStepContent(
           settknSym={settknSym}
           tknSup={tknSup}
           settknSup={settknSup}
+          whiteListChecked={whiteListChecked}
+          setwhiteListChecked={setwhiteListChecked}
           tknType={tknType}
         />
       );
@@ -116,12 +120,14 @@ export default function NewContract() {
   const [terminalDisplay, setterminalDisplay] = useState("");
   const [showTerminal, setshowTerminal] = useState(false);
   const [terminalStream, setTerminalStream] = useState(0);
+  const [whiteListChecked, setwhiteListChecked] = useState(false);
 
   const tkninfo = [
     { name: "Token Name", value: tknName },
     { name: "Token Type", value: tknType },
     { name: "Token Symbol", value: tknSym },
     { name: "Inital Supply", value: tknSup },
+    { name: "Whitelist Enabled", value: whiteListChecked },
   ];
   const stateControle = {
     tknType,
@@ -132,6 +138,8 @@ export default function NewContract() {
     settknSym,
     tknSup,
     settknSup,
+    whiteListChecked,
+    setwhiteListChecked,
     tkninfo,
   };
 
