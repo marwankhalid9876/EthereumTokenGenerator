@@ -70,7 +70,7 @@ export default function Main() {
         <CssBaseline />
         <AppBar position="absolute" color="default" className={classes.appBar}>
           <Toolbar>
-            <Link to="/">
+            <a href="/" style={{ textDecoration: "none" }}>
               <Typography
                 variant="h6"
                 color="inherit"
@@ -79,7 +79,7 @@ export default function Main() {
               >
                 Ethereum Token Generator
               </Typography>
-            </Link>
+            </a>
             <Button
               className={classes.button}
               onClick={handleLogout}

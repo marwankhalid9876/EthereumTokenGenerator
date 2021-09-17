@@ -3,6 +3,7 @@ localStorage = new LocalStorage("../scratch");
 const tokendata = JSON.parse(localStorage.getItem("tokendata"));
 if (tokendata.tknType === "erc20") {
   const simpleToken = artifacts.require("SimpleToken");
+
   module.exports = function (deployer, network, accounts) {
     console.log("data is", tokendata);
     deployer.deploy(

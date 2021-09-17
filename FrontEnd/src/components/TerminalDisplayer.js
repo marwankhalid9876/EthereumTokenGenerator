@@ -1,12 +1,24 @@
 import fetchStream from "fetch-readablestream";
 import { useEffect, useState } from "react";
+import { ReactTerminal, ReactThemes } from "react-terminal-component";
+import { EmulatorState, OutputFactory, Outputs } from "javascript-terminal";
 
 function NewlineText(props) {
   const text = props.text;
   return text.split("\n").map((str) => <p>{str}</p>);
 }
 
-export default function Displayer(props) {
+export default function TerminalDisplayer(props) {
+  // Terminal Setup
+  const defaultState = EmulatorState.createEmpty();
+  const defaultOutputs = defaultState.getOutputs();
+
+  const newOutputs = Outputs.addRecord(
+    defaultOutputs,
+    OutputFactory.makeTextOutput(props.terminalDisplay)
+  );
+  const emulatorState = defaultState.setOutputs(newOutputs);
+
   useEffect(() => {
     function readAllChunks(readableStream) {
       if (readableStream) {
@@ -40,9 +52,14 @@ export default function Displayer(props) {
 
   return (
     <>
-      <h5>Terminal</h5>
+      {/* <h5>Terminal</h5> */}
       {/* <span>{props.terminalDisplay}</span> */}
-      <NewlineText text={props.terminalDisplay} />
+      {/* <NewlineText text={props.terminalDisplay} /> */}
+      <ReactTerminal
+        emulatorState={emulatorState}
+        acceptInput={false}
+        theme={{ ...ReactThemes.sea, height: "100%", with: "100%" }}
+      />
     </>
   );
 }

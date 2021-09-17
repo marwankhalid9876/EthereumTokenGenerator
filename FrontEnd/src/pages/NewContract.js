@@ -15,8 +15,9 @@ import SelectType from "../components/SelectType";
 import Attributes from "../components/Attributes";
 import Confirmation from "../components/Confirmation";
 import deploy from "../services/deploy";
-import Displayer from "../components/Displayer";
+import TerminalDisplayer from "../components/TerminalDisplayer";
 import fetchStream from "fetch-readablestream";
+import FullScreenDialog from "../components/FullScreenDialog";
 
 function Copyright() {
   return (
@@ -151,6 +152,7 @@ export default function NewContract() {
       //     setTerminalStream(res.body);
       //   })
       //   .catch((err) => console.log("error ===<", err));
+      setshowTerminal(true);
       fetchStream("http://localhost:8080/deploy", {
         method: "POST",
         headers: {
@@ -194,7 +196,7 @@ export default function NewContract() {
                   Your Request is Being processed.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539.
+                  See the Token info below
                 </Typography>
               </>
             ) : (
@@ -218,14 +220,23 @@ export default function NewContract() {
               </>
             )}
           </>
+          {showTerminal && (
+            <>
+              <FullScreenDialog
+                title="Creating your Token..."
+                openBtnText="Open Results"
+              >
+                <TerminalDisplayer
+                  terminalStream={terminalStream}
+                  terminalDisplay={terminalDisplay}
+                  setterminalDisplay={setterminalDisplay}
+                />
+              </FullScreenDialog>
+            </>
+          )}
         </Paper>
       </main>
       <Copyright />
-      <Displayer
-        terminalStream={terminalStream}
-        terminalDisplay={terminalDisplay}
-        setterminalDisplay={setterminalDisplay}
-      />
     </>
   );
 }
