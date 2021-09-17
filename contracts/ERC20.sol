@@ -14,7 +14,7 @@ contract SimpleToken is ERC20 {
     /**
      * @dev Constructor that gives msg.sender all of existing tokens.
      */
-    
+    address _admin;
      //uint256 _totalSupply;
      address[]  private wlist;
      bool _list;
@@ -23,11 +23,14 @@ contract SimpleToken is ERC20 {
         string memory symbol,
         uint256 initialSupply,
         bool list
+        ,address[] memory w
     ) public ERC20(name, symbol) {
       
       addtoWlist(msg.sender);
+      _admin=msg.sender;
         _mint(msg.sender, initialSupply);
-        
+        _list=list;
+        wlist=w;
     }
    
     function transferFrom(address sender, address recipient, uint256 amount) public virtual
@@ -44,6 +47,8 @@ return true;
         return false;
 }
    function inWlist(address add) public  view returns(bool){
+       if(_list==false)
+       return true;
          for (uint i = 0; i<wlist.length; i++){
            if(wlist[i]==add){
                
@@ -51,6 +56,7 @@ return true;
           
           return true;
            }}
+           return false;
            }
  function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
         
@@ -65,9 +71,11 @@ return true;
         return false;
 }
     function addtoWlist(address add)public{
+        require(_admin==msg.sender);
         wlist.push(add);
     }
   function removefromWlist(address add)public{
+        require(_admin==msg.sender);
        for (uint i = 0; i<wlist.length; i++){
            if(wlist[i]==add){
            delete wlist[i];
