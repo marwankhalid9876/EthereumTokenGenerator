@@ -36,8 +36,7 @@ app.post("/login", function (req, res) {
   const { mnemonic } = req.body;
   console.log("mnemonic", mnemonic);
 
-  let newUser = { mnemonic: mnemonic };
-  db.add("users", newUser);
+  db.addUser(mnemonic);
 
   res.cookie("mnemonic", mnemonic);
   res.status(200).send("OK");
@@ -46,12 +45,6 @@ app.post("/logout", function (req, res) {
   const mnemonic = req.body.mnemonic;
   console.log("logging out", mnemonic);
 
-  let allUsers = db.get("users");
-  db.set(
-    "users",
-    allUsers.filter((user) => user.mnemonic != mnemonic)
-  );
-
   res.clearCookie("mnemonic");
   res.status(200).send("OK");
 });
@@ -59,8 +52,7 @@ app.post("/logout", function (req, res) {
 app.post("/deploy", function (req, res) {
   const tokendata = req.body;
   const mnemonic = req.mnemonic;
-  console.log("deploying", mnemonic);
-
+  db.updateUserTokenAdd(mnemonic, { ...tokendata });
   // let users = db.get("users");
   // users.forEach((user) => {
   //   if (user.mnemonic == mnemonic) {
@@ -68,6 +60,7 @@ app.post("/deploy", function (req, res) {
   //   }
   // });
   // db.set("users", users);
+
   db.set("tokendata", tokendata);
 
   console.log("recived:", tokendata);

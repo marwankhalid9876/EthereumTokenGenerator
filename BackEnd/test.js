@@ -1,6 +1,7 @@
 const db = require("./service/fakeDb.js");
 
-const tokendata = db.get("tokendata");
+// db.updateUser("avc", { name: "eee" });
+db.updateUserTokenAdd("abc", { lua: "soma" });
+// db.updateUserDestroy("avc", "tokens");
 
-if (tokendata.tknType === "erc20") console.log("ok");
-else console.log("no");
+console.log(db.get("users"));

@@ -21,6 +21,61 @@ class db {
     newData.push(value);
     this.set(key, newData);
   }
+
+  addUser(mnemonic) {
+    let users = this.get("users");
+    const index = users.findIndex((user) => user.mnemonic === mnemonic);
+    if (index == -1) {
+      let user = { mnemonic: mnemonic, tokens: [] };
+      users.push(user);
+      this.set("users", users);
+    } else {
+      // DO nothing already added
+    }
+  }
+
+  updateUserAdd(mnemonic, newData) {
+    let newUsers = this.get("users");
+    const index = newUsers.findIndex((user) => user.mnemonic === mnemonic);
+    newUsers[index] = { ...newUsers[0], ...newData };
+
+    // console.log(newUsers);
+    this.set("users", newUsers);
+  }
+  updateUserDestroy(mnemonic, dataKey) {
+    let newUsers = this.get("users");
+    const index = newUsers.findIndex((user) => user.mnemonic === mnemonic);
+    delete newUsers[index][dataKey];
+
+    // console.log(newUsers);
+    this.set("users", newUsers);
+  }
+  updateUserTokenAdd(mnemonic, data) {
+    let newUsers = this.get("users");
+    const index = newUsers.findIndex((user) => user.mnemonic === mnemonic);
+
+    let tokenArray = newUsers[index]["tokens"];
+    console.log(tokenArray);
+    tokenArray.push(data);
+    newUsers[index]["tokens"] = tokenArray;
+
+    // console.log(newUsers);
+    this.set("users", newUsers);
+  }
+  updateUserTokenRemove(mnemonic, key) {
+    // let newUsers = this.get("users");
+    // const index = newUsers.findIndex((user) => user.mnemonic === mnemonic);
+    // let tokenArray = newUsers[index]["tokens"];
+    // if (tokenArray == undefined) {
+    //   this.updateUserAdd(mnemonic, { tokens: [] });
+    // }
+    // tokenArray = newUsers[index]["tokens"];
+    // tokenArray.push(data);
+    // newUsers[index]["tokens"] = tokenArray;
+    // // console.log(newUsers);
+    // this.set("users", newUsers);
+  }
+
   localStorage() {
     return localStorage;
   }
