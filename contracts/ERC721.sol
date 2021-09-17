@@ -13,10 +13,10 @@ bool _list;
      mapping(address => uint256[]) private balances; 
      
     constructor(string memory name,
-        string memory symbol, bool list,address[] memory w) ERC721(name, symbol) public {
+        string memory symbol, bool list) ERC721(name, symbol) public {
             admin=msg.sender;
             _list=list;
-            wlist=w;
+          
     }
 
     function awardItem(address player, string memory tokenURI) public returns (uint256) {
