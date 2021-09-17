@@ -18,6 +18,7 @@ import deploy from "../services/deploy";
 import TerminalDisplayer from "../components/TerminalDisplayer";
 import fetchStream from "fetch-readablestream";
 import FullScreenDialog from "../components/FullScreenDialog";
+import Cookies from "js-cookie";
 
 function Copyright() {
   return (
@@ -152,6 +153,8 @@ export default function NewContract() {
       //     setTerminalStream(res.body);
       //   })
       //   .catch((err) => console.log("error ===<", err));
+      console.log("mnemonic", "mnemonic=" + Cookies.get("mnemonic"));
+
       setshowTerminal(true);
       fetchStream("http://localhost:8080/deploy", {
         method: "POST",
@@ -159,11 +162,13 @@ export default function NewContract() {
           "Content-Type": "application/json",
         },
         mode: "cors",
+
         body: JSON.stringify({
           tknType: tknType,
           tknName: tknName,
           tknSym: tknSym,
           tknSup: tknSup,
+          mnemonic: Cookies.get("mnemonic"),
         }),
       })
         .then((response) => setTerminalStream(response.body))

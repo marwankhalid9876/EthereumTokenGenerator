@@ -1,6 +1,13 @@
 const { LocalStorage } = require("node-localstorage");
 localStorage = new LocalStorage("../scratch");
 const tokendata = JSON.parse(localStorage.getItem("tokendata"));
+
+// const db = require("../service/fakeDb.js");
+
+// const tokendata = db.get("tokendata");
+// console.log("db", db);
+// console.log("tokendata", tokendata);
+
 if (tokendata.tknType === "erc20") {
   const simpleToken = artifacts.require("SimpleToken");
 

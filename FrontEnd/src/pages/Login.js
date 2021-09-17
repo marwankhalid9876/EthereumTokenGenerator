@@ -71,7 +71,7 @@ export default function Login() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign in (Rinkeby Test-Network)
           </Typography>
           <Box
             component="form"

@@ -6,8 +6,8 @@ const { RequestTimeout } = require("http-errors");
 var cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const { exec, spawn, fork } = require("child_process");
-const { LocalStorage } = require("node-localstorage");
-global.localStorage = new LocalStorage("./scratch");
+const userAuth = require("./middlewares/userAuth");
+const db = require("./service/fakeDb");
 
 var path = require("path");
 var app = express();
@@ -25,6 +25,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(userAuth);
 
 app.get("/", function (req, res) {
   res.json({ message: "Welcome from the node Serve" });
@@ -34,19 +35,40 @@ app.post("/login", function (req, res) {
   console.log("logging in");
   const { mnemonic } = req.body;
   console.log("mnemonic", mnemonic);
-  localStorage.setItem("mnemonic", mnemonic);
+
+  let newUser = { mnemonic: mnemonic };
+  db.add("users", newUser);
+
   res.cookie("mnemonic", mnemonic);
   res.status(200).send("OK");
 });
 app.post("/logout", function (req, res) {
-  console.log("logging out");
+  const mnemonic = req.body.mnemonic;
+  console.log("logging out", mnemonic);
+
+  let allUsers = db.get("users");
+  db.set(
+    "users",
+    allUsers.filter((user) => user.mnemonic != mnemonic)
+  );
+
   res.clearCookie("mnemonic");
   res.status(200).send("OK");
 });
 
 app.post("/deploy", function (req, res) {
   const tokendata = req.body;
-  localStorage.setItem("tokendata", JSON.stringify(tokendata));
+  const mnemonic = req.mnemonic;
+  console.log("deploying", mnemonic);
+
+  // let users = db.get("users");
+  // users.forEach((user) => {
+  //   if (user.mnemonic == mnemonic) {
+  //     user["tokendata"] = tokendata;
+  //   }
+  // });
+  // db.set("users", users);
+  db.set("tokendata", tokendata);
 
   console.log("recived:", tokendata);
   // TODO: Perform Validation checkes
