@@ -23,14 +23,14 @@ contract SimpleToken is ERC20 {
         string memory symbol,
         uint256 initialSupply,
         bool list
-        ,address[] memory w
+       
     ) public ERC20(name, symbol) {
       
       addtoWlist(msg.sender);
       _admin=msg.sender;
         _mint(msg.sender, initialSupply);
         _list=list;
-        wlist=w;
+ 
     }
    
     function transferFrom(address sender, address recipient, uint256 amount) public virtual
