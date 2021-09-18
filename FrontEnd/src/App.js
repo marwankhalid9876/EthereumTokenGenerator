@@ -16,16 +16,15 @@ const App = () => {
 
       <Switch>
         <Route exact path="/login" component={Login} />
-        <>
-          <Route
-            exact
-            path="/ContractView/:blockTimeStamp"
-            component={ContractView}
-          />
-          <Route exact path="*">
-            {mnemonic === undefined ? <Redirect to="/login" /> : <Main />}
-          </Route>
-        </>
+
+        <Route
+          exact
+          path="/ContractView/:blockTimeStamp"
+          component={ContractView}
+        />
+        <Route exact path="*">
+          {mnemonic === undefined ? <Redirect to="/login" /> : <Main />}
+        </Route>
       </Switch>
     </BrowserRouter>
   );
