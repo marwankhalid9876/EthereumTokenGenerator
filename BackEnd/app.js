@@ -31,7 +31,17 @@ app.use(userAuth);
 app.get("/", function (req, res) {
   res.json({ message: "Welcome from the node Serve" });
 });
+app.get("/getUserTokenList", function (req, res) {
+  const tokens = db.getUserTokens(req.mnemonic);
+  res.status(200).send(tokens);
+});
 
+app.post("/getContractInfo", function (req, res) {
+  const mnemonic = req.mnemonic;
+  const blockTimeStamp = req.body.blockTimeStamp;
+  const result = db.getContractInfo(mnemonic, blockTimeStamp);
+  res.status(200).send(result);
+});
 app.post("/login", function (req, res) {
   console.log("logging in");
   const { mnemonic } = req.body;
@@ -78,7 +88,8 @@ app.post("/deploy", function (req, res) {
     console.log(`Child exited with code ${code}`);
     stdoutput = stdoutput.join("\n");
     const parsedOut = parseDeployment(stdoutput);
-    if (parsedOut) db.updateUserTokenAdd(mnemonic, parsedOut);
+    if (parsedOut)
+      db.updateUserTokenAdd(mnemonic, { ...parsedOut, ...tokendata });
     // res.status(200).send("ok");
   });
 });

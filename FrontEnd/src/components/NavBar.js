@@ -1,7 +1,5 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
-import Login from "./Login";
-import NewContract from "./NewContract";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -10,18 +8,9 @@ import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import http from "../services/http-common";
-import Test from "./Test";
 import Paper from "@material-ui/core/Paper";
-import TokensList from "../components/ContractList";
-import NavBar from "../components/NavBar";
-import { BrowserRouter, Redirect, Switch, Route } from "react-router-dom";
 
-export default function Main() {
-  // TESTING
-  // return <Test />;
-
-  const [showNewContracts, setshowNewContracts] = useState(false);
-
+export default function NavBar(props) {
   const useStyles = makeStyles((theme) => ({
     appBar: {
       position: "relative",
@@ -55,46 +44,40 @@ export default function Main() {
       // marginTop: theme.spacing(3),
       // marginLeft: theme.spacing(1),
     },
-    addNewBtn: {
-      display: "flex",
-      justifyContent: "flex-end",
-      alignItems: "right",
-      marginTop: theme.spacing(3),
-      marginLeft: "auto",
-    },
   }));
   const classes = useStyles();
   const mnemonic = Cookies.get("mnemonic");
 
-  // if (mnemonic === undefined) return <Redirect to="/login" />;
-  // else
+  const handleLogout = () => {
+    http
+      .post("http://localhost:8080/logout", { mnemonic: mnemonic })
+      .then((res) => {
+        console.log("succes ==>", res);
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log("error =<", err);
+      });
+  };
   return (
     <>
-      <NavBar />
-
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <TokensList />
-          {!showNewContracts && (
-            <Button
-              variant="outlined"
-              className={classes.addNewBtn}
-              onClick={() => {
-                setshowNewContracts(true);
-              }}
-            >
-              New Contract
-            </Button>
-          )}
-        </Paper>
-        {showNewContracts && (
-          <NewContract
-            handleCloseBtn={() => {
-              setshowNewContracts(false);
-            }}
-          />
-        )}
-      </main>
+      <CssBaseline />
+      <AppBar position="absolute" color="default" className={classes.appBar}>
+        <Toolbar>
+          <a href="/" style={{ textDecoration: "none" }}>
+            <Typography variant="h6" color="inherit" noWrap style={{ flex: 1 }}>
+              Ethereum Token Generator
+            </Typography>
+          </a>
+          <Button
+            className={classes.button}
+            onClick={handleLogout}
+            style={{ marginLeft: "auto" }}
+          >
+            Logout
+          </Button>
+        </Toolbar>
+      </AppBar>
     </>
   );
 }

@@ -31,7 +31,7 @@ function parseDeployment(inputString) {
   objAcc = {};
   while (match != null) {
     let obj = {};
-    const key = match[1].replace(" ", "_"); // block timestamp => block_timestamp
+    const key = match[1].replace(" ", "_").replace(":", ""); // block timestamp: => block_timestamp
     obj[key] = match[2];
 
     objAcc = { ...objAcc, ...obj };

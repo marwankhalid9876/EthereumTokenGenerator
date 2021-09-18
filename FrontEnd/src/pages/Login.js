@@ -49,7 +49,9 @@ export default function Login() {
       .post("http://localhost:8080/login", { mnemonic: mnemonic })
       .then((res) => {
         console.log("succes ==>", res);
-        window.location.reload();
+        window.location.replace("/");
+
+        // window.location.reload();
       })
       .catch((err) => {
         console.log("error =<", err);

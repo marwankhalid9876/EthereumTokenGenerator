@@ -19,6 +19,7 @@ import TerminalDisplayer from "../components/TerminalDisplayer";
 import fetchStream from "fetch-readablestream";
 import FullScreenDialog from "../components/FullScreenDialog";
 import Cookies from "js-cookie";
+import Grid from "@material-ui/core/Grid";
 
 function Copyright() {
   return (
@@ -63,6 +64,13 @@ const useStyles = makeStyles((theme) => ({
   buttons: {
     display: "flex",
     justifyContent: "flex-end",
+  },
+  closeBtn: {
+    display: "flex",
+    justifyContent: "flex-start",
+    marginTop: theme.spacing(3),
+    marginLeft: theme.spacing(1),
+    marginRight: "auto",
   },
   button: {
     marginTop: theme.spacing(3),
@@ -112,7 +120,7 @@ function getStepContent(
   }
 }
 
-export default function NewContract() {
+export default function NewContract(props) {
   const [tknType, settknType] = useState("");
   const [tknName, settknName] = useState("");
   const [tknSym, settknSym] = useState("");
@@ -215,7 +223,14 @@ export default function NewContract() {
             ) : (
               <>
                 {getStepContent(activeStep, stateControle)}
+
                 <div className={classes.buttons}>
+                  <Button
+                    className={classes.closeBtn}
+                    onClick={props.handleCloseBtn}
+                  >
+                    Cancel
+                  </Button>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
                       Back

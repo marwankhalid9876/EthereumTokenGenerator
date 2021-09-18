@@ -70,6 +70,17 @@ class db {
     let tokenArray = newUsers[index]["tokens"];
     return tokenArray;
   }
+  getContractInfo(mnemonic, blockTimeStamp) {
+    let newUsers = this.get("users");
+    const index = newUsers.findIndex((user) => user.mnemonic === mnemonic);
+
+    let tokenArray = newUsers[index]["tokens"];
+    const filterd = tokenArray.filter(
+      (contract) => contract.block_timestamp == blockTimeStamp
+    );
+
+    return filterd[0];
+  }
   updateUserTokenRemove(mnemonic, key) {
     // let newUsers = this.get("users");
     // const index = newUsers.findIndex((user) => user.mnemonic === mnemonic);
