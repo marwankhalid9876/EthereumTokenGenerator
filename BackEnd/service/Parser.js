@@ -4,8 +4,8 @@ function parseDeployment(inputString) {
 
   const txt = inputString;
   //   TODO: revert
-  //   const filter1 = txt.split("Starting migrations")[1];
-  const filter1 = txt;
+  const filter1 = txt.split("Starting migrations")[1];
+  // const filter1 = txt;
 
   const blackList = [
     "Compiling",

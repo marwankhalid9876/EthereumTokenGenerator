@@ -21,19 +21,6 @@ import FullScreenDialog from "../components/FullScreenDialog";
 import Cookies from "js-cookie";
 import Grid from "@material-ui/core/Grid";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="http://localhost:3000/">
-        Ethereum Token Generator
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -200,7 +187,7 @@ export default function NewContract(props) {
     <>
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
+          <Typography component="h1" variant="h4" align="left">
             Token Creator
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
@@ -264,7 +251,6 @@ export default function NewContract(props) {
           )}
         </Paper>
       </main>
-      <Copyright />
     </>
   );
 }

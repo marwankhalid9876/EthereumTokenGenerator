@@ -19,6 +19,18 @@ import { BrowserRouter, Redirect, Switch, Route } from "react-router-dom";
 export default function Main() {
   // TESTING
   // return <Test />;
+  function Copyright() {
+    return (
+      <Typography variant="body2" color="textSecondary" align="center">
+        {"Copyright © "}
+        <Link color="inherit" href="http://localhost:3000/">
+          Ethereum Token Generator
+        </Link>{" "}
+        {new Date().getFullYear()}
+        {"."}
+      </Typography>
+    );
+  }
 
   const [showNewContracts, setshowNewContracts] = useState(false);
 
@@ -95,6 +107,7 @@ export default function Main() {
           />
         )}
       </main>
+      <Copyright />
     </>
   );
 }

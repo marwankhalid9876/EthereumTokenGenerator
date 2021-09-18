@@ -7,6 +7,12 @@ class tokenService {
   getContractInfo(blockTimeStamp) {
     return http.post("/getContractInfo", blockTimeStamp);
   }
+  getContractMethods(data) {
+    return http.post("/getContractMethods", data);
+  }
+  callMethod(data) {
+    return http.post("/callMethod", data);
+  }
 }
 
 export default new tokenService();

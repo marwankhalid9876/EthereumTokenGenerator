@@ -19,14 +19,17 @@ const Tokenitem = (props) => {
     console.log("clkick");
   };
   return (
-    <Button
-      style={{ width: "100%", alignItems: "left", justifyContent: "left" }}
-      href={props.href}
-    >
-      <h4>
-        {token.tknName} type ({token.tknType})
-      </h4>
-    </Button>
+    <>
+      <Button
+        style={{ width: "100%", alignItems: "left", justifyContent: "left" }}
+        href={props.href}
+      >
+        <h4>
+          {token.tknName} ({token.tknType})
+        </h4>
+      </Button>
+      <hr />
+    </>
     // <Link
     //   to="/ee"
     //   onClick={handleClick}
@@ -56,9 +59,10 @@ export default function ContractList(props) {
 
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h4" gutterBottom>
         My Contracts
       </Typography>
+
       <Grid
         container
         direction="column"

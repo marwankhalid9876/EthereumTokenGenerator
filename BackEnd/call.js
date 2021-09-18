@@ -21,6 +21,7 @@ const daiToken = new web3.eth.Contract(contABI, DAI_ADDRESS);
 const senderAddress = "0xbf09c99396EEB4F7E0ccA7d3de36b1b7DC87E984";
 const receiverAddress = "0x19dE91Af973F404EDF5B4c093983a7c6E3EC8ccE";
 
+// daiToken.methods.inWlist(receiverAddress).call(function (err, res) {
 daiToken.methods.inWlist(receiverAddress).call(function (err, res) {
   if (err) {
     console.log("An error occured", err);
@@ -31,10 +32,13 @@ daiToken.methods.inWlist(receiverAddress).call(function (err, res) {
 
 // daiToken.methods
 //   .addtoWlist(receiverAddress)
-//   .send({ from: senderAddress, gas: '1000000', gasPrice: '5000000000' }, function (err, res) {
-//     if (err) {
-//       console.log("An error occured", err)
-//       return
+//   .send(
+//     { from: senderAddress, gas: "1000000", gasPrice: "5000000000" },
+//     function (err, res) {
+//       if (err) {
+//         console.log("An error occured", err);
+//         return;
+//       }
+//       console.log("Hash of the transaction: " + res);
 //     }
-//     console.log("Hash of the transaction: " + res)
-//   })
+//   );

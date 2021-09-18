@@ -9,6 +9,7 @@ const { exec, spawn, fork } = require("child_process");
 const userAuth = require("./middlewares/userAuth");
 const db = require("./service/fakeDb");
 const parseDeployment = require("./service/Parser");
+const tokenService = require("./service/tokenService");
 
 var path = require("path");
 var app = express();
@@ -42,6 +43,38 @@ app.post("/getContractInfo", function (req, res) {
   const result = db.getContractInfo(mnemonic, blockTimeStamp);
   res.status(200).send(result);
 });
+
+app.post("/getContractMethods", function (req, res) {
+  console.log("geting contreact methods");
+  const mnemonic = req.mnemonic;
+  const { contractAddress } = req.body;
+  // TODO: REVERT
+  // const result = tokenService.getContractMethods(mnemonic, contractAddress)
+  const result = tokenService.getContractMethods(
+    "pelican enable chief quality install huge pear acid speak into match river",
+    "0x4c0dc7A9C7ceC8C7e6B839879c01137c8b8519EF"
+  );
+  console.log(result);
+  res.status(200).send(result);
+});
+app.post("/callMethod", function (req, res) {
+  const mnemonic = req.mnemonic;
+  const { contractAddress, methodName, args } = req.body;
+  console.log("calling", methodName, args);
+
+  // TODO: REVERT
+  const result = tokenService.callMethod(
+    "pelican enable chief quality install huge pear acid speak into match river",
+    contractAddress,
+    methodName,
+    args,
+    (result) => {
+      console.log("responding with", result);
+      res.status(200).send(result);
+    }
+  );
+});
+
 app.post("/login", function (req, res) {
   console.log("logging in");
   const { mnemonic } = req.body;
@@ -70,7 +103,7 @@ app.post("/deploy", function (req, res) {
   // TODO: Perform Validation checkes
   let stdoutput = [];
   console.log("running truffle");
-  const command = "truffle migrate --network rinkeby --reset --dry-run";
+  const command = "truffle migrate --network rinkeby --reset";
 
   const prog = spawn("cmd.exe", ["/c", command]);
 

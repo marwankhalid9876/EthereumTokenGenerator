@@ -14,7 +14,14 @@ import Button from "@material-ui/core/Button";
 import { Link, useParams } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
-const { jsonToHTMLTable } = require("nested-json-to-table");
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Box from "@mui/material/Box";
+
+import parseArgs from "../services/parser";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -58,7 +65,98 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ViewRow = (props) => {
+const FormDialog = (props) => {
+  const [args, setargs] = useState([]);
+  const [resultFromCall, setresultFromCall] = useState("");
+  const contractInfo = props.contractInfo;
+  const callMethod = (methodName, args) => {
+    console.log("calling", methodName, "args", args);
+    const contractAddress = contractInfo.contract_address;
+    tokenService
+      .callMethod({ contractAddress, methodName, args })
+      .then((res) => {
+        console.log("success ==>", res.data);
+        setresultFromCall(res.data);
+      })
+      .catch((err) => console.log("err ==<", err));
+  };
+
+  useEffect(() => {
+    if (props.showDialog == false) return;
+    const parsedArgs = parseArgs(props.method);
+    setargs(parsedArgs);
+    if (parsedArgs == 0) callMethod(props.method, []);
+  }, [props.showDialog]);
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = {};
+    let argsStack = [];
+    let methodName = "";
+    for (let i = 0; i < form.elements.length - 2; i++) {
+      const elem = form.elements[i];
+      if (elem.name === "submittedFormMethodName") {
+        methodName = elem.value;
+        continue;
+      }
+      //   data[elem.name] = elem.value;
+      argsStack.push({ name: elem.name, value: elem.value });
+    }
+
+    callMethod(methodName, argsStack);
+  };
+
+  const handleClose = () => {
+    setresultFromCall("");
+    props.setshowDialog(false);
+  };
+
+  return (
+    <div>
+      <Dialog open={props.showDialog} onClose={handleClose}>
+        <form onSubmit={handleFormSubmit}>
+          <DialogTitle>Call {props.method}</DialogTitle>
+          <DialogContent>
+            {!(args == "") && (
+              <DialogContentText>
+                Requires the following parameters
+              </DialogContentText>
+            )}
+            {args.map((arg) => (
+              <TextField
+                autoFocus
+                margin="dense"
+                fullWidth
+                variant="standard"
+                required
+                name={arg}
+                label={arg}
+                type={arg}
+                id={arg}
+              />
+            ))}
+            <input
+              type="hidden"
+              name="submittedFormMethodName"
+              value={props.method.split("(")[0]}
+            />
+
+            <Typography variant="h6" gutterBottom>
+              Result = {JSON.stringify(resultFromCall)}
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button type="submit">Call</Button>
+          </DialogActions>
+        </form>
+      </Dialog>
+    </div>
+  );
+};
+
+const InfoRow = (props) => {
   return (
     <>
       <Typography variant="h6" gutterBottom>
@@ -67,10 +165,34 @@ const ViewRow = (props) => {
     </>
   );
 };
+const MethodCall = (props) => {
+  const [showDialog, setshowDialog] = useState(false);
+
+  return (
+    <>
+      <Button
+        variant="contained"
+        size="large"
+        onClick={() => {
+          setshowDialog(true);
+        }}
+      >
+        {props.title}
+      </Button>
+      <FormDialog
+        showDialog={showDialog}
+        setshowDialog={setshowDialog}
+        method={props.title}
+        contractInfo={props.contractInfo}
+      />
+    </>
+  );
+};
 
 export default function ContractView(props) {
   const classes = useStyles();
   const [contractInfo, setcontractInfo] = useState({});
+  const [contractMethods, setcontractMethods] = useState([]);
 
   let { blockTimeStamp } = useParams();
   useEffect(() => {
@@ -83,13 +205,20 @@ export default function ContractView(props) {
       .catch((err) => console.log("err ==<", err));
   }, []);
 
-  //   console.log(
-  //     Object.keys(contractInfo).forEach((item, index, array) => {
-  //       return <ViewRow key={item} value={contractInfo[item]} />;
-  //     })
-  //   );
+  useEffect(() => {
+    const contractAddress = contractInfo.contract_address;
+    if (!contractAddress) return;
+    console.log("contreact address", contractAddress);
+    tokenService
+      .getContractMethods({ contractAddress })
+      .then((res) => {
+        console.log("Methods ==>>", res.data);
+        setcontractMethods(res.data);
+      })
+      .catch((err) => console.log("err ==<", err));
+  }, [contractInfo]);
 
-  const { tknName, tknType } = contractInfo;
+  const { tknName } = contractInfo;
   return (
     <main className={classes.layout}>
       <Grid
@@ -102,12 +231,18 @@ export default function ContractView(props) {
         <Typography variant="h4" gutterBottom>
           {tknName}
         </Typography>
-        {/* <Typography variant="h6" gutterBottom>
-          {JSON.stringify(contractInfo, null, "  ")}
-        </Typography> */}
-
+        <hr />
         {Object.entries(contractInfo).map(([item, value]) => (
-          <ViewRow item={item} value={value} />
+          <InfoRow item={item} value={value} />
+        ))}
+
+        <hr />
+        <Typography variant="h4" gutterBottom>
+          Available Methods:
+        </Typography>
+        <hr />
+        {contractMethods.map((methodName) => (
+          <MethodCall title={methodName} contractInfo={contractInfo} />
         ))}
       </Paper>
     </main>

@@ -17,7 +17,8 @@ if (tokendata.tknType === "erc20") {
       simpleToken,
       tokendata.tknName,
       tokendata.tknSym,
-      tokendata.tknSup
+      tokendata.tknSup,
+      []
     );
     // deployer.deploy(simpleToken, "mytok", "sym", 100);
   };
