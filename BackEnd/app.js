@@ -8,6 +8,7 @@ const bodyParser = require("body-parser");
 const { exec, spawn, fork } = require("child_process");
 const userAuth = require("./middlewares/userAuth");
 const db = require("./service/fakeDb");
+const parseDeployment = require("./service/Parser");
 
 var path = require("path");
 var app = express();
@@ -52,29 +53,33 @@ app.post("/logout", function (req, res) {
 app.post("/deploy", function (req, res) {
   const tokendata = req.body;
   const mnemonic = req.mnemonic;
-  db.updateUserTokenAdd(mnemonic, { ...tokendata });
 
   db.set("tokendata", tokendata);
 
   console.log("recived:", tokendata);
   // TODO: Perform Validation checkes
-
+  let stdoutput = [];
   console.log("running truffle");
-  const command = "truffle migrate --network rinkeby --reset --compile-all";
-  const bat = spawn("cmd.exe", ["/c", command]);
+  const command = "truffle migrate --network rinkeby --reset --dry-run";
 
-  bat.stdout.pipe(res);
-  bat.stdout.on("data", (data) => {
+  const prog = spawn("cmd.exe", ["/c", command]);
+
+  prog.stdout.pipe(res);
+  prog.stdout.on("data", (data) => {
     console.log(data.toString());
+    stdoutput.push(data);
   });
 
-  bat.stderr.on("data", (data) => {
+  prog.stderr.on("data", (data) => {
     console.error(data.toString());
   });
 
-  bat.on("exit", (code) => {
+  prog.on("exit", (code) => {
     console.log(`Child exited with code ${code}`);
-    res.status(200).send("ok");
+    stdoutput = stdoutput.join("\n");
+    const parsedOut = parseDeployment(stdoutput);
+    if (parsedOut) db.updateUserTokenAdd(mnemonic, parsedOut);
+    // res.status(200).send("ok");
   });
 });
 

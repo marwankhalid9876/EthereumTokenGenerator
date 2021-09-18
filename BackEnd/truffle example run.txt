@@ -1,4 +1,3 @@
-
 Compiling your contracts...
 
 ===========================
@@ -25,8 +24,8 @@ Compiling your contracts...
 
 > Compilation warnings encountered:
 
-    Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for 
-more information.
+    Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment 
+containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
 --> project:/contracts/ERC20.sol
 
 ,Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
@@ -102,59 +101,44 @@ Migrations dry-run (simulation)
 ===============================
 > Network name:    'rinkeby-fork'
 > Network id:      4
-> Block gas limit: 29941438 (0x1c8debe)
+> Block gas limit: 30000000 (0x1c9c380)
 
 
 
 1_initial_migration.js
 ======================
-data is { tknName: 'heml', tknSym: 'sym', tknSup: 100 }
+
+data is {
+  tknType: 'erc20',
+  tknName: 'abo',
+  tknSym: 'bao',
+  tknSup: '100',
+  mnemonic: 'some nemonic'
+}
 
 
    Replacing 'SimpleToken'
    -----------------------
 
-   > block number:        9297763
-   > block timestamp:     1631721571
+   > block number:        9310545
+   > block timestamp:     1631913591
    > account:             0xbf09c99396EEB4F7E0ccA7d3de36b1b7DC87E984
-   > balance:             2.247687745
-   > gas used:            1357525 (0x14b6d5)
+   > balance:             2.174402575
+   > gas used:            1357513 (0x14b6c9)
    > gas price:           10 gwei
    > value sent:          0 ETH
-   > total cost:          0.01357525 ETH
+   > total cost:          0.01357513 ETH
 
 
    -------------------------------------
-   > Total cost:          0.01357525 ETH
-
-
-
-2_second_migration.js
-=====================
-
-
-   Replacing 'GameItem'
-   --------------------
-
-   > block number:        9297765
-   > block timestamp:     1631721605
-   > account:             0xbf09c99396EEB4F7E0ccA7d3de36b1b7DC87E984
-   > balance:             2.219401675
-   > gas used:            2801094 (0x2abdc6)
-   > gas price:           10 gwei
-   > value sent:          0 ETH
-   > total cost:          0.02801094 ETH
-
-
-   -------------------------------------
-   > Total cost:          0.02801094 ETH
+   > Total cost:          0.01357513 ETH
 
 
 
 Summary
 =======
-> Total deployments:   2
-> Final cost:          0.04158619 ETH
+> Total deployments:   1
+> Final cost:          0.01357513 ETH
 
 
 
@@ -167,32 +151,38 @@ Starting migrations...
 ======================
 > Network name:    'rinkeby'
 > Network id:      4
-> Block gas limit: 30000000 (0x1c9c380)
+> Block gas limit: 29999972 (0x1c9c364)
 
 
 1_initial_migration.js
 ======================
 
-data is { tknName: 'heml', tknSym: 'sym', tknSup: 100 }
+data is {
+  tknType: 'erc20',
+  tknName: 'abo',
+  tknSym: 'bao',
+  tknSup: '100',
+  mnemonic: 'some nemonic'
+}
 
 
    Replacing 'SimpleToken'
    -----------------------
 
-   > transaction hash:    0xf7564ccb0f9f308e7a265165c0db1b1a31f6ff7bb5e7b9b7f61d46c90a6a6ac6
+   > transaction hash:    0x372a1598ef6fd9ee5986291f52be8c6cadac54ad4ddf1683017f235b1a2b876a
 
 - Blocks: 0            Seconds: 0
 
-   > Blocks: 2            Seconds: 17
-   > contract address:    0x58f0fE6c0cEefbb5e157Cb679C912bDEF5A0cd71
-   > block number:        9297768
-   > block timestamp:     1631721699
+   > Blocks: 2            Seconds: 20
+   > contract address:    0xE71C02dABAF3A5E26729f11E8959De984a6A1636
+   > block number:        9310548
+   > block timestamp:     1631913700
    > account:             0xbf09c99396EEB4F7E0ccA7d3de36b1b7DC87E984
-   > balance:             2.246709745
-   > gas used:            1455325 (0x1634dd)
+   > balance:             2.173424575
+   > gas used:            1455313 (0x1634d1)
    > gas price:           10 gwei
    > value sent:          0 ETH
-   > total cost:          0.01455325 ETH
+   > total cost:          0.01455313 ETH
 
 
 
@@ -203,49 +193,10 @@ data is { tknName: 'heml', tknSym: 'sym', tknSup: 100 }
 
    > Saving artifacts
    -------------------------------------
-   > Total cost:          0.01455325 ETH
-
-
-
-2_second_migration.js
-=====================
-
-
-   Replacing 'GameItem'
-   --------------------
-
-   > transaction hash:    0x917c7a5318b46f3e36b7da312f54eac0e036a23ac9caefed18a07434042404df
-
-- Blocks: 0            Seconds: 0
-
-   > Blocks: 1            Seconds: 12
-   > contract address:    0xA7CDBEFd70093E3e1bAf5Fa7342DF1B3DC03B567
-   > block number:        9297770
-   > block timestamp:     1631721729
-   > account:             0xbf09c99396EEB4F7E0ccA7d3de36b1b7DC87E984
-   > balance:             2.217921675
-   > gas used:            2849994 (0x2b7cca)
-   > gas price:           10 gwei
-   > value sent:          0 ETH
-   > total cost:          0.02849994 ETH
-
-
-
-
-- Saving migration to chain.
-
-   > Saving migration to chain.
-
-   > Saving artifacts
-   -------------------------------------
-   > Total cost:          0.02849994 ETH
+   > Total cost:          0.01455313 ETH
 
 
 Summary
 =======
-> Total deployments:   2
-> Final cost:          0.04305319 ETH
-
-
-
-
+> Total deployments:   1
+> Final cost:          0.01455313 ETH

@@ -55,12 +55,20 @@ class db {
     const index = newUsers.findIndex((user) => user.mnemonic === mnemonic);
 
     let tokenArray = newUsers[index]["tokens"];
-    console.log(tokenArray);
+
+    // console.log(tokenArray);
     tokenArray.push(data);
     newUsers[index]["tokens"] = tokenArray;
 
     // console.log(newUsers);
     this.set("users", newUsers);
+  }
+  getUserTokens(mnemonic) {
+    let newUsers = this.get("users");
+    const index = newUsers.findIndex((user) => user.mnemonic === mnemonic);
+
+    let tokenArray = newUsers[index]["tokens"];
+    return tokenArray;
   }
   updateUserTokenRemove(mnemonic, key) {
     // let newUsers = this.get("users");
