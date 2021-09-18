@@ -18,7 +18,7 @@ if (tokendata.tknType === "erc20") {
       tokendata.tknName,
       tokendata.tknSym,
       tokendata.tknSup,
-      []
+      tokendata.tknWL
     );
     // deployer.deploy(simpleToken, "mytok", "sym", 100);
   };
@@ -27,7 +27,12 @@ if (tokendata.tknType === "erc20") {
 
   module.exports = function (deployer, network, accounts) {
     console.log("data is", tokendata);
-    deployer.deploy(gameItem, tokendata.tknName, tokendata.tknSym);
+    deployer.deploy(
+      gameItem,
+      tokendata.tknName,
+      tokendata.tknSym,
+      tokendata.tknWL
+    );
     // deployer.deploy(simpleToken, "mytok", "sym", 100);
   };
 }

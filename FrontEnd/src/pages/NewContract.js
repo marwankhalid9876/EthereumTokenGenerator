@@ -171,6 +171,7 @@ export default function NewContract(props) {
           tknName: tknName,
           tknSym: tknSym,
           tknSup: tknSup,
+          tknWL: whiteListChecked,
           mnemonic: Cookies.get("mnemonic"),
         }),
       })

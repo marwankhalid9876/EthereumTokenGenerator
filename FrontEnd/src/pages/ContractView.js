@@ -72,8 +72,9 @@ const FormDialog = (props) => {
   const callMethod = (methodName, args) => {
     console.log("calling", methodName, "args", args);
     const contractAddress = contractInfo.contract_address;
+    const tknType = contractInfo.tknType;
     tokenService
-      .callMethod({ contractAddress, methodName, args })
+      .callMethod({ contractAddress, methodName, args, tknType })
       .then((res) => {
         console.log("success ==>", res.data);
         setresultFromCall(res.data);
@@ -207,10 +208,11 @@ export default function ContractView(props) {
 
   useEffect(() => {
     const contractAddress = contractInfo.contract_address;
+    const tknType = contractInfo.tknType;
     if (!contractAddress) return;
     console.log("contreact address", contractAddress);
     tokenService
-      .getContractMethods({ contractAddress })
+      .getContractMethods({ contractAddress, tknType })
       .then((res) => {
         console.log("Methods ==>>", res.data);
         setcontractMethods(res.data);
@@ -229,7 +231,7 @@ export default function ContractView(props) {
       ></Grid>
       <Paper className={classes.paper}>
         <Typography variant="h4" gutterBottom>
-          {tknName}
+          Contract: {tknName}
         </Typography>
         <hr />
         {Object.entries(contractInfo).map(([item, value]) => (

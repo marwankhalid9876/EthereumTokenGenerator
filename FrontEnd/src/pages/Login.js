@@ -45,6 +45,9 @@ export default function Login() {
       mnemonic: data.get("mnemonic"),
     });
 
+    // pelican enable chief quality install huge pear acid speak into match river
+    // 0x4c0dc7A9C7ceC8C7e6B839879c01137c8b8519EF ERC20
+
     http
       .post("http://localhost:8080/login", { mnemonic: mnemonic })
       .then((res) => {

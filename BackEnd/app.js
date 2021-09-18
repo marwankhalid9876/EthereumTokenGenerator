@@ -47,27 +47,28 @@ app.post("/getContractInfo", function (req, res) {
 app.post("/getContractMethods", function (req, res) {
   console.log("geting contreact methods");
   const mnemonic = req.mnemonic;
-  const { contractAddress } = req.body;
-  // TODO: REVERT
-  // const result = tokenService.getContractMethods(mnemonic, contractAddress)
+  const { contractAddress, tknType } = req.body;
+
   const result = tokenService.getContractMethods(
-    "pelican enable chief quality install huge pear acid speak into match river",
-    "0x4c0dc7A9C7ceC8C7e6B839879c01137c8b8519EF"
+    mnemonic,
+    contractAddress,
+    tknType
   );
   console.log(result);
   res.status(200).send(result);
 });
 app.post("/callMethod", function (req, res) {
   const mnemonic = req.mnemonic;
-  const { contractAddress, methodName, args } = req.body;
+  const { contractAddress, methodName, args, tknType } = req.body;
   console.log("calling", methodName, args);
 
   // TODO: REVERT
   const result = tokenService.callMethod(
-    "pelican enable chief quality install huge pear acid speak into match river",
+    mnemonic,
     contractAddress,
     methodName,
     args,
+    tknType,
     (result) => {
       console.log("responding with", result);
       res.status(200).send(result);

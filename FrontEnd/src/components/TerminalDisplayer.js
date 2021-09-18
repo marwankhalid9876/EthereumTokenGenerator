@@ -45,9 +45,10 @@ export default function TerminalDisplayer(props) {
         return pump();
       }
     }
-
-    console.log("Getting the Data");
-    readAllChunks(props.terminalStream);
+    try {
+      readAllChunks(props.terminalStream);
+      console.log("Getting the Data");
+    } catch {}
   }, [props.terminalStream]);
 
   return (

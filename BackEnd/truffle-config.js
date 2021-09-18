@@ -18,12 +18,15 @@
  *
  */
 
- const HDWalletProvider = require('truffle-hdwallet-provider');
- require('dotenv').config();
-var mnemonic = 'pelican enable chief quality install huge pear acid speak into match river';
+const { LocalStorage } = require("node-localstorage");
+localStorage = new LocalStorage("./scratch");
+const tokendata = JSON.parse(localStorage.getItem("tokendata"));
 
-var tokenKey = '97b64c56475b472fa03fc09c4b2131bd';
+const HDWalletProvider = require("truffle-hdwallet-provider");
+require("dotenv").config();
+var mnemonic = tokendata.mnemonic;
 
+// var tokenKey = "97b64c56475b472fa03fc09c4b2131bd";
 
 //
 // const fs = require('fs');
@@ -41,15 +44,18 @@ module.exports = {
    */
 
   networks: {
-    rinkeby:{
+    rinkeby: {
       host: "localhost",
-      provider: function() {
-        return new HDWalletProvider( mnemonic, 'https://rinkeby.infura.io/v3/668fd647f9d045b6ac8812a06b850b82');
+      provider: function () {
+        return new HDWalletProvider(
+          mnemonic,
+          "https://rinkeby.infura.io/v3/668fd647f9d045b6ac8812a06b850b82"
+        );
       },
-      network_id:4
-      , gas : 6700000
-      , gasPrice : 10000000000
-    }
+      network_id: 4,
+      gas: 6700000,
+      gasPrice: 10000000000,
+    },
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
     // You should run a client (like ganache-cli, geth or parity) in a separate terminal
@@ -96,7 +102,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.8.0",    // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.8.0", // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {
@@ -105,7 +111,7 @@ module.exports = {
       //  },
       //  evmVersion: "byzantium"
       // }
-    }
+    },
   },
 
   // Truffle DB is currently disabled by default; to enable it, change enabled:
@@ -115,17 +121,17 @@ module.exports = {
   // NOTE: It is not possible to migrate your contracts to truffle DB and you should
   // make a backup of your artifacts to a safe location before enabling this feature.
   //
-  // After you backed up your artifacts you can utilize db by running migrate as follows: 
+  // After you backed up your artifacts you can utilize db by running migrate as follows:
   // $ truffle migrate --reset --compile-all
   //
   // db: {
-    // enabled: false,
-    // host: "127.0.0.1",
-    // adapter: {
-    //   name: "sqlite",
-    //   settings: {
-    //     directory: ".db"
-    //   }
-    // }
+  // enabled: false,
+  // host: "127.0.0.1",
+  // adapter: {
+  //   name: "sqlite",
+  //   settings: {
+  //     directory: ".db"
+  //   }
+  // }
   // }
 };

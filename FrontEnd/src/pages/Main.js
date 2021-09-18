@@ -13,7 +13,6 @@ import http from "../services/http-common";
 import Test from "./Test";
 import Paper from "@material-ui/core/Paper";
 import TokensList from "../components/ContractList";
-import NavBar from "../components/NavBar";
 import { BrowserRouter, Redirect, Switch, Route } from "react-router-dom";
 
 export default function Main() {
@@ -82,8 +81,6 @@ export default function Main() {
   // else
   return (
     <>
-      <NavBar />
-
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <TokensList />

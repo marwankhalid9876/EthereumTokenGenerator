@@ -4,10 +4,15 @@ const Web3 = require("web3");
 var path = require("path");
 
 class tokenService {
-  getContractMethods(mnemonic, contractAddress) {
+  getContractMethods(mnemonic, contractAddress, tknType) {
     const contract = JSON.parse(
       fs.readFileSync(
-        path.join(__dirname, "../build/contracts/SimpleToken.json"),
+        path.join(
+          __dirname,
+          tknType == "erc20"
+            ? "../build/contracts/ERC20.json"
+            : "../build/contracts/ERC721.json"
+        ),
         "utf8"
       )
     );
@@ -39,10 +44,15 @@ class tokenService {
     return methodNames;
   }
 
-  callMethod(mnemonic, contractAddress, methodName, args, callBack) {
+  callMethod(mnemonic, contractAddress, methodName, args, tknType, callBack) {
     const contract = JSON.parse(
       fs.readFileSync(
-        path.join(__dirname, "../build/contracts/SimpleToken.json"),
+        path.join(
+          __dirname,
+          tknType == "erc20"
+            ? "../build/contracts/ERC20.json"
+            : "../build/contracts/ERC721.json"
+        ),
         "utf8"
       )
     );
