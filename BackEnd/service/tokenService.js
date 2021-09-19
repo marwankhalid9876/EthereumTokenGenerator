@@ -10,8 +10,8 @@ class tokenService {
         path.join(
           __dirname,
           tknType == "erc20"
-            ? "../build/contracts/ERC20.json"
-            : "../build/contracts/ERC721.json"
+            ? "../build/contracts/SimpleToken.json"
+            : "../build/contracts/GameItem.json"
         ),
         "utf8"
       )
@@ -37,9 +37,9 @@ class tokenService {
     let ctr = 0;
     const methodNames = Object.entries(daiToken.methods)
       .map(([item, value]) => item)
-      .filter((item) => {
-        return ++ctr % 3 == 0;
-      });
+      .filter((item) => 
+        item.includes('(')
+      );
 
     return methodNames;
   }
@@ -50,8 +50,8 @@ class tokenService {
         path.join(
           __dirname,
           tknType == "erc20"
-            ? "../build/contracts/ERC20.json"
-            : "../build/contracts/ERC721.json"
+            ? "../build/contracts/SimpleToken.json"
+            : "../build/contracts/GameItem.json"
         ),
         "utf8"
       )
