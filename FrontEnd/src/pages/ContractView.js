@@ -79,7 +79,11 @@ const FormDialog = (props) => {
         console.log("success ==>", res.data);
         setresultFromCall(res.data);
       })
-      .catch((err) => console.log("err ==<", err));
+      .catch((err) => {
+        console.log("err ==<", err);
+        console.log(err.response);
+        alert(err.response.data.reason);
+      });
   };
 
   useEffect(() => {

@@ -64,17 +64,22 @@ app.post("/callMethod", function (req, res) {
   console.log("calling", methodName, args);
 
   // TODO: REVERT
-  const result = tokenService.callMethod(
-    mnemonic,
-    contractAddress,
-    methodName,
-    args,
-    tknType,
-    (result) => {
-      console.log("responding with", result);
-      res.status(200).send(result);
-    }
-  );
+  try {
+    const result = tokenService.callMethod(
+      mnemonic,
+      contractAddress,
+      methodName,
+      args,
+      tknType,
+      (result) => {
+        console.log("responding with", result);
+        res.status(200).send(result);
+      }
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
 });
 
 app.post("/login", function (req, res) {
