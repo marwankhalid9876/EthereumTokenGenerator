@@ -19,7 +19,7 @@ const web3 = new Web3(provider);
 const daiToken = new web3.eth.Contract(contABI, DAI_ADDRESS);
 
 const senderAddress = "0xbf09c99396EEB4F7E0ccA7d3de36b1b7DC87E984";
-const receiverAddress = "0x19dE91Af973F404EDF5B4c093983a7c6E3EC8ccE";
+const receiverAddress = "0xb3D6c0E4316ea268FB6E9205aF4A2d54Ca443286";
 
 // daiToken.methods.inWlist(receiverAddress).call(function (err, res) {
 daiToken.methods.inWlist(receiverAddress).call(function (err, res) {
