@@ -57,7 +57,9 @@ export default function Login() {
         // window.location.reload();
       })
       .catch((err) => {
-        console.log("error =<", err);
+        // console.log("error =<", err);
+        console.log("error", err.response);
+        alert(err.response.data);
       });
   };
 

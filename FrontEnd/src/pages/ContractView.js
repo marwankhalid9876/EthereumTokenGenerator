@@ -79,7 +79,11 @@ const FormDialog = (props) => {
         console.log("success ==>", res.data);
         setresultFromCall(res.data);
       })
-      .catch((err) => console.log("err ==<", err));
+      .catch((err) => {
+        console.log("err ==<", err);
+        console.log(err.response);
+        alert(err.response.data.reason);
+      });
   };
 
   useEffect(() => {
@@ -161,7 +165,7 @@ const InfoRow = (props) => {
   return (
     <>
       <Typography variant="h6" gutterBottom>
-        {props.item}:{props.value}
+        {props.item}:{JSON.stringify(props.value)}
       </Typography>
     </>
   );
