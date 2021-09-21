@@ -18,7 +18,7 @@ bool _list;
             
     }
 
-    function awardItem(address player, string memory tokenURI) public returns (uint256) {
+    function awardItem(address player, string memory tokenURI) public payable returns (uint256) {
     
     require(msg.sender==admin);
     require(inWlist(player));
@@ -61,11 +61,11 @@ bool _list;
        return false;
    }
    
-       function addtoWlist(address add)public{
+       function addtoWlist(address add)public payable{
         require(admin==msg.sender);
         wlist.push(add);
     }
-  function removefromWlist(address add)public{
+  function removefromWlist(address add)public payable{
        for (uint i = 0; i<wlist.length; i++){
            if(wlist[i]==add){
            delete wlist[i];

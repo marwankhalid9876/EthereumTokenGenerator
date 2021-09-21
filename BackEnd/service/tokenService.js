@@ -80,7 +80,8 @@ class tokenService {
       })
       .map((arg) => arg.name);
 
-    if (payable.includes(methodName)) {
+      if (payable.includes(methodName)) {
+        console.log("sending");
       return daiToken.methods[methodName]
         .apply(null, onlyArgs)
         .send(
@@ -95,6 +96,7 @@ class tokenService {
           }
         );
     } else {
+      console.log("calling");
       return daiToken.methods[methodName]
         .apply(null, onlyArgs)
         .call(function (err, res) {
