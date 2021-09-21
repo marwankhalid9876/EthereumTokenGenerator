@@ -92,7 +92,7 @@ app.post("/login", function (req, res) {
 
     res.cookie("mnemonic", mnemonic);
     res.status(200).send("OK");
-  } else res.status(403).send({ msg: "AccessDenied" });
+  } else res.status(403).send("AccessDenied");
 });
 app.post("/logout", function (req, res) {
   const mnemonic = req.body.mnemonic;
