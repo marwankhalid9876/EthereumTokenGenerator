@@ -161,7 +161,7 @@ const InfoRow = (props) => {
   return (
     <>
       <Typography variant="h6" gutterBottom>
-        {props.item}:{props.value}
+        {props.item}:{JSON.stringify(props.value)}
       </Typography>
     </>
   );

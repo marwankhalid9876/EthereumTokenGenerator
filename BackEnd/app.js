@@ -10,6 +10,7 @@ const userAuth = require("./middlewares/userAuth");
 const db = require("./service/fakeDb");
 const parseDeployment = require("./service/Parser");
 const tokenService = require("./service/tokenService");
+const verifier = require("./service/verifier");
 
 var path = require("path");
 var app = express();
@@ -79,12 +80,14 @@ app.post("/callMethod", function (req, res) {
 app.post("/login", function (req, res) {
   console.log("logging in");
   const { mnemonic } = req.body;
-  console.log("mnemonic", mnemonic);
+  console.log(" mnemonic", mnemonic);
 
-  db.addUser(mnemonic);
+  if (verifier.isValidMnemonic(mnemonic)) {
+    db.addUser(mnemonic);
 
-  res.cookie("mnemonic", mnemonic);
-  res.status(200).send("OK");
+    res.cookie("mnemonic", mnemonic);
+    res.status(200).send("OK");
+  } else res.status(403).send({ msg: "AccessDenied" });
 });
 app.post("/logout", function (req, res) {
   const mnemonic = req.body.mnemonic;
