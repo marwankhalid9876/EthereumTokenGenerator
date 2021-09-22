@@ -32,7 +32,7 @@ bool _list;
         return newItemId;
     }
     
-    function transferFrom (address from, address to, uint256 tokenId)public override
+    function userTransferFrom (address from, address to, uint256 tokenId)public payable
     {
         require(inWlist(to));
         safeTransferFrom(from, to, tokenId);
@@ -73,7 +73,15 @@ bool _list;
         }
         
     }
+
+     function approveTo(address add, uint256 tokenID)public payable{
+         approve(add, tokenID);
+        
+        
+    }
     function ownedTokens (address add)public view returns ( uint256[] memory){
         return balances[add];
     }
+
+    
 }

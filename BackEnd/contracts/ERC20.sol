@@ -68,6 +68,7 @@ contract SimpleToken is ERC20 {
         wlist.push(add);
     }
 
+
     function removefromWlist(address add) public payable {
         for (uint256 i = 0; i < wlist.length; i++) {
             if (wlist[i] == add) {

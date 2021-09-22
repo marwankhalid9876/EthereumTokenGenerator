@@ -102,6 +102,7 @@ class tokenService {
         .call(function (err, res) {
           if (err) {
             console.log("An error occured", err);
+            console.log(fromAddress);
             return;
           }
           console.log("resullt", res);
