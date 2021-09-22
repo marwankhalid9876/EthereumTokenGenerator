@@ -15,8 +15,7 @@ bool _list;
     constructor(string memory name,
         string memory symbol, bool list) ERC721(name, symbol) public {
             admin=msg.sender;
-            
-    }
+            _list=list;}
 
     function awardItem(address player, string memory tokenURI) public payable returns (uint256) {
     
@@ -38,6 +37,12 @@ bool _list;
         safeTransferFrom(from, to, tokenId);
         
     }
+    function userTransferTo ( address to, uint256 tokenId)public payable
+    {
+        require(inWlist(to));
+        safeTransferFrom(msg.sender, to, tokenId);
+        
+    }
 
  function transferFrom(address from, address to, uint256 tokenId,bytes  memory _data)public {
     require(inWlist(to));
@@ -47,8 +52,8 @@ bool _list;
    
     
     function inWlist(address add) public  view returns(bool){
-        if(!_list)
-        return true;
+        if(!_list){
+        return true;}
          for (uint i = 0; i<wlist.length; i++){
            if(wlist[i]==add){
                
