@@ -74,7 +74,7 @@ bool _list;
        for (uint i = 0; i<wlist.length; i++){
            if(wlist[i]==add){
            delete wlist[i];
-          return;}
+         }
         }
         
     }
